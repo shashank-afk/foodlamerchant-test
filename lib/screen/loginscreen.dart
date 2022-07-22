@@ -12,6 +12,7 @@ class LoginScreen extends StatelessWidget {
 
 
       body:Stack(
+
         children: [
         Align(
           alignment: Alignment(0.0,-0.6),
