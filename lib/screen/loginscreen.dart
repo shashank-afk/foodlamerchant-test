@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'registration_screen.dart';
 class LoginScreen extends StatelessWidget {
@@ -10,10 +11,31 @@ class LoginScreen extends StatelessWidget {
 
 
 
-
       body:Stack(
 
         children: [
+
+      Align(
+        alignment: Alignment(1.0,0.2),
+      child: SizedBox(
+
+      width: 356,
+        child: TextField(
+          decoration: InputDecoration(
+            border: InputBorder.none,
+            hintStyle: TextStyle(
+              color: Colors.grey,
+              fontSize: 16,
+            ),
+            hintText: 'Eg. 7281956382',
+          ),
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          keyboardType: TextInputType.phone,
+          cursorColor: Color.fromRGBO(114, 204,80,1),
+        ),
+      ),
+      ),
+
         Align(
           alignment: Alignment(0.0,-0.6),
           child:
@@ -36,7 +58,16 @@ class LoginScreen extends StatelessWidget {
             ),
           ),
 
-
+          Align(
+            alignment: Alignment(-0.8,0.1),
+            child:
+            Text( 'WhatsApp Number',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Color.fromRGBO(48, 126,19,1),
+                )
+            ),
+          ),
 
 
           Align(
@@ -70,8 +101,8 @@ class LoginScreen extends StatelessWidget {
           ),
   ],
     ),
-
-
     );
+
+
   }
 }

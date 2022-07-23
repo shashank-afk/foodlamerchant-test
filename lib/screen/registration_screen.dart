@@ -21,12 +21,14 @@ class RegistrationScreen extends StatelessWidget {
                   width: 3,
                   color: Color.fromRGBO(114, 204,80,1),
                 ),
+
                 shape: BoxShape.circle,
                 image: DecorationImage(
                  fit: BoxFit.cover,
                   image:NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
                 )
               ),
+
             ),
           ),
           Align(
