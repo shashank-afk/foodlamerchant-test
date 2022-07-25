@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
@@ -8,29 +9,60 @@ class RegistrationScreen extends StatelessWidget {
 
 
       body:
+      GestureDetector(
+        behavior: HitTestBehavior.translucent,
+
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+
+    child:
       Stack(
 
         children: [
+
+          //IMAGE
           Align(
             alignment: Alignment(0.0,-0.3),
             child: Container(
               width: 130,
               height: 130,
               decoration: BoxDecoration(
-                border: Border.all(
-                  width: 3,
-                  color: Color.fromRGBO(114, 204,80,1),
-                ),
+                  border: Border.all(
+                    width: 3,
+                    color: Color.fromRGBO(114, 204,80,1),
+                  ),
 
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                 fit: BoxFit.cover,
-                  image:NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
-                )
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image:NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
+                  )
               ),
 
             ),
           ),
+
+          //EDIT BUTTON
+          Align(
+              alignment: Alignment(0.3,-0.16),
+              child: Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    width: 2,
+                    color:Colors.black,
+                  ),
+                  color: Colors.white,
+                ),
+                child: Icon(Icons.edit,
+                  color:Color.fromRGBO(114, 204,80,1) ,
+                ),
+
+              )
+          ),
+
+          //MISRUT
           Align(
             alignment: Alignment(0.0,-0.8),
             child:
@@ -41,6 +73,8 @@ class RegistrationScreen extends StatelessWidget {
                 )
             ),
           ),
+
+          //MARKETING CONTENT
 
           Align(
             alignment: Alignment(0.0,-0.6),
@@ -55,9 +89,10 @@ class RegistrationScreen extends StatelessWidget {
 
 
 
+          //NEXT BUTTON
 
           Align(
-            alignment: Alignment(0.0,0.6),
+            alignment: Alignment(0.0,0.7),
             child: Container(
               padding: EdgeInsets.all(32),
 
@@ -85,8 +120,86 @@ class RegistrationScreen extends StatelessWidget {
               ),
             ),
           ),
+
+          //NAME TEXT
+
+          Align(
+            alignment: Alignment(-0.8,0.1),
+            child:
+            Text( 'Name',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Color.fromRGBO(48, 126,19,1),
+                )
+            ),
+          ),
+
+          //NAME FIELD
+          Align(
+            alignment: Alignment(1.0,0.2),
+            child: SizedBox(
+
+              width: 356,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  hintText: 'Name',
+                ),
+
+                cursorColor: Color.fromRGBO(114, 204,80,1),
+              ),
+            ),
+          ),
+
+          //EMAIL TEXT
+          Align(
+            alignment: Alignment(-0.8,0.3),
+            child:
+            Text( 'Email',
+                style: TextStyle(
+                  fontSize: 14.0,
+                  color: Color.fromRGBO(48, 126,19,1),
+                )
+            ),
+          ),
+
+          //EMAIL FIELD
+          Align(
+            alignment: Alignment(1.0,0.4),
+            child: SizedBox(
+
+              width: 356,
+              child: TextField(
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 16,
+                  ),
+
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  hintText: 'Eg. cafeawesome@gmail.com',
+                ),
+
+                cursorColor: Color.fromRGBO(114, 204,80,1),
+              ),
+            ),
+          ),
+
         ],
       ),
+
+
+    ),
+
+
+      resizeToAvoidBottomInset: false,
     );
 
   }
