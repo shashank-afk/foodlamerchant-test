@@ -2,8 +2,57 @@
 import 'package:flutter/material.dart';
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
-
   @override
+  Widget buildSheet() {
+
+      return Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+        Container(
+        child: ListTile(
+            title: Text(
+                "Profile Picture",
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+            ),
+      ),
+        ),
+
+            Container(
+              child: ListTile(
+                title: Text("Gallery"),
+                leading: IconButton(
+                  icon:new Icon(Icons.image_outlined),
+                    iconSize: 38,
+                    onPressed: (){},
+                  color: Color.fromRGBO(114, 204,80,1),
+                ),
+              ),
+            ),
+            Container(
+              child: ListTile(
+                title: Text("Camera"),
+                leading: IconButton(
+                  icon:new Icon(Icons.camera_alt_outlined),
+                  iconSize: 38,
+                  color: Color.fromRGBO(114, 204,80,1),
+                  onPressed: (){},
+                ),
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+
+
+
+
+
+
   Widget build(BuildContext context) {
     return Scaffold(
 
@@ -22,24 +71,40 @@ class RegistrationScreen extends StatelessWidget {
           //IMAGE
           Align(
             alignment: Alignment(0.0,-0.3),
-            child: Container(
+            child: ClipOval(
+            child: Material(
+                type: MaterialType.transparency,
+            color: Colors.transparent,
+
+            child:Ink.image(
+              image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
+
+
+              fit:BoxFit.cover,
               width: 130,
               height: 130,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 3,
-                    color: Color.fromRGBO(114, 204,80,1),
-                  ),
+              child: InkWell(
+                child: Ink(
+                  height: 130,
+                  width: 130,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.transparent,
+                    border: Border.all(
+                      color: Color.fromRGBO(114, 204,80,1),
+                      width: 3.0,
+                    ),
+                ),
 
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image:NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg")
-                  )
+                ),
+                onTap: (){print("tapped");},
               ),
 
-            ),
+            )
+      ),
+      ),
           ),
+
 
           //EDIT BUTTON
           Align(
@@ -55,9 +120,16 @@ class RegistrationScreen extends StatelessWidget {
                   ),
                   color: Colors.white,
                 ),
-                child: Icon(Icons.edit,
-                  color:Color.fromRGBO(114, 204,80,1) ,
-                ),
+
+
+                  child: IconButton(
+                    padding: EdgeInsets.only(top:0.1),
+                    icon: new Icon(Icons.edit),
+                    color:Color.fromRGBO(114, 204,80,1) ,
+                    onPressed:() =>showModalBottomSheet(context: context, builder:(context) => buildSheet()) ,
+
+                  ),
+
 
               )
           ),
@@ -203,4 +275,7 @@ class RegistrationScreen extends StatelessWidget {
     );
 
   }
+
+
+
 }
