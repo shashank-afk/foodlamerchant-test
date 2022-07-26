@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class RegistrationScreen extends StatelessWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
   @override
+
+  //bottom modal screen
   Widget buildSheet() {
 
       return Container(
@@ -22,7 +24,20 @@ class RegistrationScreen extends StatelessWidget {
 
             Container(
               child: ListTile(
-                title: Text("Gallery"),
+                subtitle: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 300,
+                      child: TextButton(child: Text('Gallery',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.black,
+                      ),
+                      ),
+                          onPressed: () {}),
+                    )
+                  ],
+                ),
                 leading: IconButton(
                   icon:new Icon(Icons.image_outlined),
                     iconSize: 38,
@@ -33,7 +48,18 @@ class RegistrationScreen extends StatelessWidget {
             ),
             Container(
               child: ListTile(
-                title: Text("Camera"),
+                subtitle: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 300,
+                      child: TextButton(child: Text('Camera',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),), onPressed: () {}),
+                    )
+                  ],
+                ),
                 leading: IconButton(
                   icon:new Icon(Icons.camera_alt_outlined),
                   iconSize: 38,
