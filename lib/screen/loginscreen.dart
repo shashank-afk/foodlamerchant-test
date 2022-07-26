@@ -29,6 +29,7 @@ class LoginScreen extends StatelessWidget {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintStyle: TextStyle(
+                      fontFamily: 'Montserrat',
                       color: Colors.grey,
                       fontSize: 16,
                     ),
@@ -49,6 +50,7 @@ class LoginScreen extends StatelessWidget {
               Text( 'misrut',
                   style: TextStyle(
                     fontSize: 48.0,
+                    fontFamily: 'Montserrat',
                     color: Colors.black,
                   )
               ),
@@ -59,6 +61,7 @@ class LoginScreen extends StatelessWidget {
               child:
               Text( 'marketing content',
                   style: TextStyle(
+                    fontFamily: 'Montserrat',
                     fontSize: 14.0,
                     color: Colors.black,
                   )
@@ -70,6 +73,7 @@ class LoginScreen extends StatelessWidget {
               child:
               Text( 'WhatsApp Number',
                   style: TextStyle(
+                    fontFamily: 'Montserrat',
                     fontSize: 14.0,
                     color: Color.fromRGBO(48, 126,19,1),
                   )
@@ -100,7 +104,7 @@ class LoginScreen extends StatelessWidget {
 
                     );
                   },
-                  child: Text('Next'),
+                  child: Text('Next',style: TextStyle(fontFamily: 'Montserrat',),),
 
 
                 ),

@@ -1,7 +1,24 @@
-
+import 'dart:io';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+
+import 'Restraunt_setupScreen.dart';
+
 class RegistrationScreen extends StatelessWidget {
-  const RegistrationScreen({Key? key}) : super(key: key);
+  File? image;
+  Future pickImage() async{
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      if (image == null) return;
+      
+      final imageTemporary = File(image.path);
+      this.image = imageTemporary;
+    } on PlatformException catch (e) {
+      print('failed to pick image: $e');
+      // TODO
+    }
+  }
   @override
 
   //bottom modal screen
@@ -16,6 +33,7 @@ class RegistrationScreen extends StatelessWidget {
             title: Text(
                 "Profile Picture",
                     style: TextStyle(
+                      fontFamily: 'Montserrat',
                       fontSize: 20,
                     ),
             ),
@@ -30,11 +48,12 @@ class RegistrationScreen extends StatelessWidget {
                       width: 300,
                       child: TextButton(child: Text('Gallery',
                       style: TextStyle(
+                        fontFamily: 'Montserrat',
                         fontSize: 20,
                         color: Colors.black,
                       ),
                       ),
-                          onPressed: () {}),
+                          onPressed: () => pickImage()),
                     )
                   ],
                 ),
@@ -54,9 +73,12 @@ class RegistrationScreen extends StatelessWidget {
                       width: 300,
                       child: TextButton(child: Text('Camera',
                         style: TextStyle(
+                          fontFamily: 'Montserrat',
                           fontSize: 20,
                           color: Colors.black,
-                        ),), onPressed: () {}),
+                        ),
+                      ),
+                          onPressed: () {}),
                     )
                   ],
                 ),
@@ -95,41 +117,42 @@ class RegistrationScreen extends StatelessWidget {
         children: [
 
           //IMAGE
-          Align(
-            alignment: Alignment(0.0,-0.3),
-            child: ClipOval(
-            child: Material(
-                type: MaterialType.transparency,
-            color: Colors.transparent,
+            Align(
+              alignment: Alignment(0.0,-0.3),
+              child: ClipOval(
+              child: Material(
+                  type: MaterialType.transparency,
+              color: Colors.transparent,
 
-            child:Ink.image(
-              image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
+              child:Ink.image(
+                image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
 
 
-              fit:BoxFit.cover,
-              width: 130,
-              height: 130,
-              child: InkWell(
-                child: Ink(
-                  height: 130,
-                  width: 130,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.transparent,
-                    border: Border.all(
-                      color: Color.fromRGBO(114, 204,80,1),
-                      width: 3.0,
-                    ),
+                fit:BoxFit.cover,
+                width: 130,
+                height: 130,
+                child: InkWell(
+                  child: Ink(
+                    height: 130,
+                    width: 130,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.transparent,
+                      border: Border.all(
+                        color: Color.fromRGBO(114, 204,80,1),
+                        width: 3.0,
+                      ),
+                  ),
+
+                  ),
+                  onTap: (){print("tapped");},
                 ),
 
-                ),
-                onTap: (){print("tapped");},
-              ),
+              )
+      ),
+      ),
+            ),
 
-            )
-      ),
-      ),
-          ),
 
 
           //EDIT BUTTON
@@ -166,6 +189,7 @@ class RegistrationScreen extends StatelessWidget {
             child:
             Text( 'misrut',
                 style: TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 48.0,
                   color: Colors.black,
                 )
@@ -179,6 +203,7 @@ class RegistrationScreen extends StatelessWidget {
             child:
             Text( 'marketing content',
                 style: TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 14.0,
                   color: Colors.black,
                 )
@@ -207,12 +232,13 @@ class RegistrationScreen extends StatelessWidget {
                 ),
                 onPressed: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => RegistrationScreen(),
+                    MaterialPageRoute(builder: (context) => restaurantSetup(),
                     ),
 
                   );
                 },
-                child: Text('Next'),
+                child: Text('Next',
+                style: TextStyle(fontFamily: 'Montserrat',),),
 
 
               ),
@@ -226,6 +252,7 @@ class RegistrationScreen extends StatelessWidget {
             child:
             Text( 'Name',
                 style: TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 14.0,
                   color: Color.fromRGBO(48, 126,19,1),
                 )
@@ -242,6 +269,7 @@ class RegistrationScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintStyle: TextStyle(
+                    fontFamily: 'Montserrat',
                     color: Colors.grey,
                     fontSize: 16,
                   ),
@@ -261,6 +289,7 @@ class RegistrationScreen extends StatelessWidget {
             child:
             Text( 'Email',
                 style: TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 14.0,
                   color: Color.fromRGBO(48, 126,19,1),
                 )
@@ -277,6 +306,7 @@ class RegistrationScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintStyle: TextStyle(
+                    fontFamily: 'Montserrat',
                     color: Colors.grey,
                     fontSize: 16,
                   ),
