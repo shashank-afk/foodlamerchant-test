@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'Thankyou_Screen.dart';
-class RestaurantMenu extends StatelessWidget {
+class RestaurantMenu extends StatefulWidget {
   const RestaurantMenu({Key? key}) : super(key: key);
 
+  @override
+  State<RestaurantMenu> createState() => _RestaurantMenuState();
+}
+
+class _RestaurantMenuState extends State<RestaurantMenu> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'registration_screen.dart';
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,26 +25,32 @@ class LoginScreen extends StatelessWidget {
 
           children: [
             //PHONE NO. FIELD
-            Align(
-              alignment: Alignment(1.0,0.2),
-              child: SizedBox(
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Align(
+                alignment: Alignment(1.0,0.2),
+                child: SizedBox(
+                  width: 356,
+                  child: TextField(
+                    maxLength: 10,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
 
-                width: 356,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.grey,
-                      fontSize: 16,
+                    decoration: InputDecoration(
+                      counterText: "",
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: 'Eg. 7281956382',
                     ),
-
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    hintText: 'Eg. 7281956382',
+                    inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                    keyboardType: TextInputType.phone,
+                    cursorColor: Color.fromRGBO(114, 204,80,1),
                   ),
-                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                  keyboardType: TextInputType.phone,
-                  cursorColor: Color.fromRGBO(114, 204,80,1),
                 ),
               ),
             ),

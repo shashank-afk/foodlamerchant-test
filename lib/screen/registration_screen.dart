@@ -5,20 +5,28 @@ import 'package:flutter/material.dart';
 
 import 'Restraunt_setupScreen.dart';
 
-class RegistrationScreen extends StatelessWidget {
+class RegistrationScreen extends StatefulWidget {
+  @override
+  State<RegistrationScreen> createState() => _RegistrationScreenState();
+}
+
+class _RegistrationScreenState extends State<RegistrationScreen> {
   File? image;
-  Future pickImage() async{
+
+  Future pickImage(ImageSource source) async{
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
-      
+
       final imageTemporary = File(image.path);
       this.image = imageTemporary;
+      setState(()=> this.image = imageTemporary);
     } on PlatformException catch (e) {
       print('failed to pick image: $e');
       // TODO
     }
   }
+
   @override
 
   //bottom modal screen
@@ -53,7 +61,7 @@ class RegistrationScreen extends StatelessWidget {
                         color: Colors.black,
                       ),
                       ),
-                          onPressed: () => pickImage()),
+                          onPressed: () => pickImage(ImageSource.gallery)),
                     )
                   ],
                 ),
@@ -78,8 +86,8 @@ class RegistrationScreen extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                          onPressed: () {}),
-                    )
+                      onPressed: () => pickImage(ImageSource.camera)),
+                    ),
                   ],
                 ),
                 leading: IconButton(
@@ -94,12 +102,6 @@ class RegistrationScreen extends StatelessWidget {
         ),
       );
     }
-
-
-
-
-
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -117,47 +119,63 @@ class RegistrationScreen extends StatelessWidget {
         children: [
 
           //IMAGE
-            Align(
-              alignment: Alignment(0.0,-0.3),
-              child: ClipOval(
-              child: Material(
-                  type: MaterialType.transparency,
-              color: Colors.transparent,
+          Container(
+          alignment: Alignment(0.0,-0.35),
+            child: ClipOval(
+                  child: image != null? Image.file(image!,
+                  width: 160,
+                  height: 160,
+                  fit: BoxFit.cover,
 
-              child:Ink.image(
-                image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
+                  ): Image(image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),  width: 160,
+                    height: 160,fit: BoxFit.cover,)
+              ),
 
 
-                fit:BoxFit.cover,
-                width: 130,
-                height: 130,
-                child: InkWell(
-                  child: Ink(
-                    height: 130,
-                    width: 130,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.transparent,
-                      border: Border.all(
-                        color: Color.fromRGBO(114, 204,80,1),
-                        width: 3.0,
-                      ),
-                  ),
 
-                  ),
-                  onTap: (){print("tapped");},
-                ),
+          ),
 
-              )
-      ),
-      ),
-            ),
+      //       Align(
+      //         alignment: Alignment(0.0,-0.3),
+      //         child: ClipOval(
+      //         child: Material(
+      //             type: MaterialType.transparency,
+      //         color: Colors.transparent,
+      //
+      //         child:Ink.image(
+      //           image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
+      //
+      //
+      //           fit:BoxFit.cover,
+      //           width: 130,
+      //           height: 130,
+      //           child: InkWell(
+      //             child: Ink(
+      //               height: 130,
+      //               width: 130,
+      //               decoration: BoxDecoration(
+      //                 shape: BoxShape.circle,
+      //                 color: Colors.transparent,
+      //                 border: Border.all(
+      //                   color: Color.fromRGBO(114, 204,80,1),
+      //                   width: 3.0,
+      //                 ),
+      //             ),
+      //
+      //             ),
+      //             onTap: (){print("tapped");},
+      //           ),
+      //
+      //         )
+      // ),
+      // ),
+      //       ),
 
 
 
           //EDIT BUTTON
           Align(
-              alignment: Alignment(0.3,-0.16),
+              alignment: Alignment(0.3,-0.15),
               child: Container(
                 height: 40,
                 width: 40,
@@ -260,25 +278,28 @@ class RegistrationScreen extends StatelessWidget {
           ),
 
           //NAME FIELD
-          Align(
-            alignment: Alignment(1.0,0.2),
-            child: SizedBox(
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment(1.0,0.2),
+              child: SizedBox(
 
-              width: 356,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Colors.grey,
-                    fontSize: 16,
+                width: 356,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    hintText: 'Name',
                   ),
 
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  hintText: 'Name',
+                  cursorColor: Color.fromRGBO(114, 204,80,1),
                 ),
-
-                cursorColor: Color.fromRGBO(114, 204,80,1),
               ),
             ),
           ),
@@ -297,25 +318,29 @@ class RegistrationScreen extends StatelessWidget {
           ),
 
           //EMAIL FIELD
-          Align(
-            alignment: Alignment(1.0,0.4),
-            child: SizedBox(
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+              alignment: Alignment(1.0,0.4),
+              child: SizedBox(
 
-              width: 356,
-              child: TextField(
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(
-                    fontFamily: 'Montserrat',
-                    color: Colors.grey,
-                    fontSize: 16,
+                width: 356,
+                child: TextField(
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintStyle: TextStyle(
+                      fontFamily: 'Montserrat',
+                      color: Colors.grey,
+                      fontSize: 16,
+                    ),
+
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    hintText: 'Eg. cafeawesome@gmail.com',
                   ),
 
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  hintText: 'Eg. cafeawesome@gmail.com',
+                  cursorColor: Color.fromRGBO(114, 204,80,1),
                 ),
-
-                cursorColor: Color.fromRGBO(114, 204,80,1),
               ),
             ),
           ),
@@ -331,7 +356,4 @@ class RegistrationScreen extends StatelessWidget {
     );
 
   }
-
-
-
 }

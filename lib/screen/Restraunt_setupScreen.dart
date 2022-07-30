@@ -4,20 +4,28 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'RestaurantMenu_screen.dart';
 
-class restaurantSetup extends StatelessWidget {
+class restaurantSetup extends StatefulWidget {
+  @override
+  State<restaurantSetup> createState() => _restaurantSetupState();
+}
+
+class _restaurantSetupState extends State<restaurantSetup> {
   File? image;
-  Future pickImage() async{
+
+  Future pickImage(ImageSource source) async{
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+      final image = await ImagePicker().pickImage(source: source);
       if (image == null) return;
 
       final imageTemporary = File(image.path);
       this.image = imageTemporary;
+      setState(()=> this.image = imageTemporary);
     } on PlatformException catch (e) {
       print('failed to pick image: $e');
       // TODO
     }
   }
+
   @override
 
   //bottom modal screen
@@ -50,7 +58,7 @@ class restaurantSetup extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                        onPressed: () => pickImage()),
+                        onPressed: () => pickImage(ImageSource.gallery)),
                   )
                 ],
               ),
@@ -74,7 +82,7 @@ class restaurantSetup extends StatelessWidget {
                         color: Colors.black,
                       ),
                     ),
-                        onPressed: () {}),
+                        onPressed: () => pickImage(ImageSource.camera)),
                   )
                 ],
               ),
@@ -91,12 +99,6 @@ class restaurantSetup extends StatelessWidget {
     );
   }
 
-
-
-
-
-
-
   Widget build(BuildContext context) {
     return Scaffold(
 
@@ -111,43 +113,58 @@ class restaurantSetup extends StatelessWidget {
         Stack(
 
           children: [
-
             //IMAGE
-            Align(
-              alignment: Alignment(0.0,-0.4),
+            Container(
+              alignment: Alignment(0.0,-0.35),
               child: ClipOval(
-                child: Material(
-                    type: MaterialType.transparency,
-                    color: Colors.transparent,
+                  child: image != null? Image.file(image!,
+                    width: 160,
+                    height: 160,
+                    fit: BoxFit.cover,
 
-                    child:Ink.image(
-                      image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
-
-
-                      fit:BoxFit.cover,
-                      width: 130,
-                      height: 130,
-                      child: InkWell(
-                        child: Ink(
-                          height: 130,
-                          width: 130,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.transparent,
-                            border: Border.all(
-                              color: Color.fromRGBO(114, 204,80,1),
-                              width: 3.0,
-                            ),
-                          ),
-
-                        ),
-                        onTap: (){print("tapped");},
-                      ),
-
-                    )
-                ),
+                  ): Image(image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),  width: 160,
+                    height: 160,fit: BoxFit.cover,)
               ),
+
+
+
             ),
+            // //IMAGE
+            // Align(
+            //   alignment: Alignment(0.0,-0.4),
+            //   child: ClipOval(
+            //     child: Material(
+            //         type: MaterialType.transparency,
+            //         color: Colors.transparent,
+            //
+            //         child:Ink.image(
+            //           image: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg"),
+            //
+            //
+            //           fit:BoxFit.cover,
+            //           width: 130,
+            //           height: 130,
+            //           child: InkWell(
+            //             child: Ink(
+            //               height: 130,
+            //               width: 130,
+            //               decoration: BoxDecoration(
+            //                 shape: BoxShape.circle,
+            //                 color: Colors.transparent,
+            //                 border: Border.all(
+            //                   color: Color.fromRGBO(114, 204,80,1),
+            //                   width: 3.0,
+            //                 ),
+            //               ),
+            //
+            //             ),
+            //             onTap: (){print("tapped");},
+            //           ),
+            //
+            //         )
+            //     ),
+            //   ),
+            // ),
 
           //Restaraunt Logo
             Align(
@@ -164,7 +181,7 @@ class restaurantSetup extends StatelessWidget {
 
             //EDIT BUTTON
             Align(
-                alignment: Alignment(0.3,-0.26),
+                alignment: Alignment(0.3,-0.15),
                 child: Container(
                   height: 40,
                   width: 40,
@@ -222,7 +239,7 @@ class restaurantSetup extends StatelessWidget {
             //NEXT BUTTON
 
             Align(
-              alignment: Alignment(0.0,1),
+              alignment: Alignment(0.0,1.02),
               child: Container(
                 padding: EdgeInsets.all(32),
 
@@ -254,21 +271,24 @@ class restaurantSetup extends StatelessWidget {
 
             //NAME TEXT
 
-            Align(
-              alignment: Alignment(-0.8,-0.07),
-              child:
-              Text( 'Restaurant Name',
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 14.0,
-                    color: Color.fromRGBO(48, 126,19,1),
-                  )
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Align(
+                alignment: Alignment(-0.8,-0.01),
+                child:
+                Text( 'Restaurant Name',
+                    style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14.0,
+                      color: Color.fromRGBO(48, 126,19,1),
+                    )
+                ),
               ),
             ),
 
             //NAME FIELD
             Align(
-              alignment: Alignment(1.0,0.02),
+              alignment: Alignment(1.0,0.09),
               child: SizedBox(
 
                 width: 356,
@@ -292,9 +312,9 @@ class restaurantSetup extends StatelessWidget {
 
             //EMAIL TEXT
             Align(
-              alignment: Alignment(-0.8,0.13),
+              alignment: Alignment(-0.8,0.17),
               child:
-              Text( 'Email',
+              Text( 'Address',
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.0,
@@ -304,32 +324,35 @@ class restaurantSetup extends StatelessWidget {
             ),
 
             //EMAIL FIELD
-            Align(
-              alignment: Alignment(1.0,0.22),
-              child: SizedBox(
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Align(
+                alignment: Alignment(1.0,0.28),
+                child: SizedBox(
 
-                width: 356,
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                      fontFamily: 'Montserrat',
-                      color: Colors.grey,
-                      fontSize: 16,
+                  width: 356,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(
+                        fontFamily: 'Montserrat',
+                        color: Colors.grey,
+                        fontSize: 16,
+                      ),
+
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      hintText: 'Flat, House no., Area, Colony, Street',
                     ),
 
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    hintText: 'Eg. cafeawesome@gmail.com',
+                    cursorColor: Color.fromRGBO(114, 204,80,1),
                   ),
-
-                  cursorColor: Color.fromRGBO(114, 204,80,1),
                 ),
               ),
             ),
 
         //LOCATION TEXT
             Align(
-              alignment: Alignment(-0.8,0.32),
+              alignment: Alignment(-0.8,0.36),
               child:
               Text( 'Location',
                   style: TextStyle(
@@ -352,6 +375,5 @@ class restaurantSetup extends StatelessWidget {
     );
 
   }
-
 }
 
